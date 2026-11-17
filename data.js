@@ -63,7 +63,7 @@ window.KY_DATA = {
 };
 
 window.KY_SUBMIT = function (data) {
-	return fetch('https://script.google.com/macros/s/AKfycbyPWU6hdqziLeB7Booei6k6EThhUPo9vYT200eLXfOaPTJii8Gk9R5IDB5Jt0hWD2Nz/exec', {
+	return fetch('https://script.google.com/macros/s/AKfycbyRDZtwOj0TeUF97ea3YD26kh_ifZdj4lrT0jQ-curCjPmjZ2dCdaAM0UROpqATq-Pp/exec', {
 		method: 'POST',
 		mode: 'no-cors',
 		headers: { 'Content-Type': 'text/plain' },
