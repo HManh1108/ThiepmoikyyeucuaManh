@@ -62,11 +62,45 @@ window.KY_DATA = {
 	nhacNen: 'https://res.cloudinary.com/dkv9isqz5/video/upload/v1787644111/c%C3%B3_h%E1%BA%B9n_v%E1%BB%9Bi_thanh_xu%C3%A2n_-_MONSTAR_official_music_video_jldidp.mp3'
 };
 
-window.KY_SUBMIT = function (data) {
-	return fetch('https://script.google.com/macros/s/AKfycbyRDZtwOj0TeUF97ea3YD26kh_ifZdj4lrT0jQ-curCjPmjZ2dCdaAM0UROpqATq-Pp/exec', {
-		method: 'POST',
-		mode: 'no-cors',
-		headers: { 'Content-Type': 'text/plain' },
-		body: JSON.stringify(data)
-	});
+
+window.KY_SUBMIT = async function (data) {
+    const url = 'https://script.google.com/macros/s/AKfycbyRDZtwOj0TeUF97ea3YD26kh_ifZdj4lrT0jQ-curCjPmjZ2dCdaAM0UROpqATq-Pp/exec';
+
+    if (!data) {
+        throw new Error('Không có dữ liệu gửi đi!');
+    }
+
+    const payload = {
+        ten: data.ten || data.hoTen || '',
+        loiChuc: data.loiChuc || '',
+        thamDu: data.thamDu || ''
+    };
+
+    if (!payload.ten.trim()) {
+        throw new Error('Vui lòng nhập họ tên!');
+    }
+
+    if (!['co', 'khong'].includes(payload.thamDu)) {
+        throw new Error('Vui lòng chọn trạng thái tham dự!');
+    }
+
+    try {
+        await fetch(url, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'text/plain;charset=UTF-8'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        return {
+            success: true,
+            message: 'Đã gửi yêu cầu!'
+        };
+
+    } catch (error) {
+        console.error('Lỗi gửi dữ liệu:', error);
+        throw new Error('Không thể kết nối máy chủ. Vui lòng thử lại!');
+    }
 };
