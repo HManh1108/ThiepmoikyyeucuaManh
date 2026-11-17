@@ -1,0 +1,65 @@
+/* Nền chung cho các mẫu thiệp kỷ yếu (dùng với ky.js). */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+img{max-width:100%;display:block}
+button,input,textarea,select{font:inherit;color:inherit}
+html.ky-lock,html.ky-lock body{overflow:hidden}
+.ky-intro{position:fixed;inset:0;z-index:1000;cursor:pointer}
+.ky-intro.done{display:none}
+.ky-page{max-width:480px;margin:0 auto;position:relative;overflow-x:clip;min-height:100vh}
+
+/* Hiện dần khi cuộn — chỉ ẩn khi JS đã chạy để không mất nội dung */
+.ky-js .rv{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.75,.25,1)}
+.ky-js .rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}.rv.d4{transition-delay:.4s}
+
+.ky-photo{display:block;overflow:hidden}
+.ky-photo img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.ky-photo:hover img{transform:scale(1.05)}
+.ky-lb{display:none;position:fixed;inset:0;z-index:2000;background:rgba(10,10,14,.92);align-items:center;justify-content:center;padding:18px;cursor:zoom-out}
+.ky-lb.open{display:flex}
+.ky-lb img{max-width:100%;max-height:100%;object-fit:contain;border-radius:6px}
+.ky-lb button{position:absolute;top:10px;right:14px;background:none;border:0;color:#fff;font-size:34px;line-height:1;cursor:pointer}
+
+.ky-form{display:flex;flex-direction:column;gap:10px}
+.ky-form.sent .ky-msg{font-weight:600}
+.ky-hide{position:absolute!important;left:-9999px!important}
+.ky-music{position:fixed;z-index:900;bottom:18px;right:max(16px,calc(50vw - 224px));width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;font-size:18px}
+.ky-music.on{animation:kySpin 3s linear infinite}
+@keyframes kySpin{to{transform:rotate(360deg)}}
+/* Kiểu xuất hiện khác: rv-l (từ trái) rv-r (từ phải) rv-z (phóng to) rv-f (lật 3D) rv-b (mờ thành rõ) */
+.ky-js .rv.rv-l{transform:translateX(-60px) rotate(-3deg)}
+.ky-js .rv.rv-r{transform:translateX(60px) rotate(3deg)}
+.ky-js .rv.rv-z{transform:scale(.7);transition-timing-function:cubic-bezier(.3,1.5,.5,1)}
+.ky-js .rv.rv-f{transform:perspective(700px) rotateX(-70deg);transform-origin:50% 0}
+.ky-js .rv.rv-b{transform:none;filter:blur(14px)}
+.ky-js .rv.rv-b{transition:opacity 1s ease,filter 1.2s ease}
+.ky-js .rv.in{transform:none;filter:none}
+
+/* ===== fx.js ===== */
+.fx-canvas{position:fixed;top:0;bottom:0;left:50%;width:100%;max-width:480px;height:100%;transform:translateX(-50%);pointer-events:none;z-index:800}
+.fx-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:950;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--fx1,#f69),var(--fx2,#fc6))}
+.fx-w{display:inline-block;white-space:nowrap}
+.fx-ch{display:inline-block}
+.ky-js [data-split] .fx-ch{opacity:0;transform:translateY(.7em) rotate(10deg) scale(.6);filter:blur(5px);transition:opacity .5s ease,transform .7s cubic-bezier(.3,1.6,.5,1),filter .5s ease;transition-delay:calc(var(--ci) * 35ms + .1s)}
+.ky-js [data-split].in .fx-ch{opacity:1;transform:none;filter:none}
+.fx-tilt{position:relative;transform:perspective(800px) rotateX(var(--rx,0)) rotateY(var(--ry,0));transition:transform .25s ease-out;will-change:transform}
+.fx-glare{position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.45),transparent 55%);mix-blend-mode:soft-light;z-index:3}
+.fx-scratch{position:relative}
+.fx-scratch-c{position:absolute;inset:0;width:100%;height:100%;border-radius:inherit;z-index:5;cursor:grab;touch-action:none;transition:opacity .8s ease}
+.fx-scratch-hint{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:6;pointer-events:none;padding:6px 14px;border-radius:30px;background:rgba(0,0,0,.55);color:#fff;font-size:13px;font-weight:700;white-space:nowrap;transition:opacity .3s;animation:fxHint 1.6s ease-in-out infinite}
+@keyframes fxHint{50%{transform:translate(-50%,-50%) scale(1.07)}}
+.fx-scratched .fx-scratch-c,.fx-scratched .fx-scratch-hint{opacity:0;pointer-events:none}
+.fx-scratched>:not(canvas):not(.fx-scratch-hint){animation:fxPop .6s cubic-bezier(.3,1.6,.5,1)}
+@keyframes fxPop{0%{transform:scale(.85)}100%{transform:none}}
+.btn{position:relative;overflow:hidden}
+.fx-ripple{position:absolute;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:rgba(255,255,255,.55);pointer-events:none;animation:fxRip .65s ease-out forwards}
+@keyframes fxRip{to{transform:scale(28);opacity:0}}
+.fx-flip{display:inline-block;animation:fxFlip .45s ease}
+@keyframes fxFlip{0%{transform:perspective(200px) rotateX(-90deg);opacity:.2}100%{transform:none;opacity:1}}
+.fx-typing::after{content:'▍';margin-left:1px;animation:fxCaret .7s steps(1) infinite}
+@keyframes fxCaret{50%{opacity:0}}
+[data-drag]{cursor:grab;pointer-events:auto!important;user-select:none;-webkit-user-select:none}
+.fx-dragging{cursor:grabbing;scale:1.15;filter:drop-shadow(0 10px 10px rgba(0,0,0,.25));z-index:50}
+
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
