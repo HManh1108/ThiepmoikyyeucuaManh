@@ -64,7 +64,7 @@ window.KY_DATA = {
 
 
 window.KY_SUBMIT = async function (data) {
-    const url = 'https://script.google.com/macros/s/AKfycbyRDZtwOj0TeUF97ea3YD26kh_ifZdj4lrT0jQ-curCjPmjZ2dCdaAM0UROpqATq-Pp/exec';
+    const url = 'https://script.google.com/macros/s/AKfycbz95cSMERLcMxeGHPLOdcKqClqeug6kKUEKbNNlJK9XybH7lyr2OHzKuyO69gdpPcRB/exec';
 
     if (!data) {
         throw new Error('Không có dữ liệu gửi đi!');
