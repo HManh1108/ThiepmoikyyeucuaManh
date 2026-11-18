@@ -9,7 +9,7 @@ window.KY_DATA = {
 
 	suKien: {
 		ten: 'Buổi chụp ảnh kỷ yếu',
-		ngayGio: '2026-11-29T07:30',
+		ngayGio: '2026-11-29T09:00',
 		diaDiem: 'Trường THPT Cẩm Lý',
 		diaChi: '',
 		banDo: 'https://maps.app.goo.gl/vPpi2255bQj7YwAP6'
